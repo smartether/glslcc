@@ -2388,7 +2388,7 @@ void CompilerHLSL::emit_hlsl_entry_point()
 		}
 	});
 
-	auto &execution = get_entry_point();
+//	auto &execution = get_entry_point();
 
 	switch (execution.model)
 	{

@@ -280,8 +280,6 @@ stdlib.h
 macros.h
 ../3rdparty/sx/include/sx/macros.h
 
-../3rdparty/sx/include/sx/config.h
-
 ../3rdparty/sx/include/sx/io.h
 sx.h
 ../3rdparty/sx/include/sx/sx.h
@@ -358,12 +356,6 @@ string.h
 string.h
 -
 
-/home/pi/Documents/glslcc/src/config.cpp
-config.h
-/home/pi/Documents/glslcc/src/config.h
-sstream
--
-
 /home/pi/Documents/glslcc/src/config.h
 glslang/Include/ResourceLimits.h
 /home/pi/Documents/glslcc/src/glslang/Include/ResourceLimits.h
@@ -413,20 +405,6 @@ d3dcompiler.h
 -
 ../3rdparty/sjson/sjson.h
 /home/pi/Documents/glslcc/3rdparty/sjson/sjson.h
-
-/home/pi/Documents/glslcc/src/sgs-file.cpp
-sgs-file.h
-/home/pi/Documents/glslcc/src/sgs-file.h
-sx/io.h
-/home/pi/Documents/glslcc/src/sx/io.h
-sx/array.h
-/home/pi/Documents/glslcc/src/sx/array.h
-sx/os.h
-/home/pi/Documents/glslcc/src/sx/os.h
-sx/string.h
-/home/pi/Documents/glslcc/src/sx/string.h
-string
--
 
 /home/pi/Documents/glslcc/src/sgs-file.h
 sx/allocator.h
