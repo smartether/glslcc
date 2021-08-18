@@ -187,7 +187,7 @@ static bool is_reserved_identifier(const string &name, bool member, bool allow_r
 {
 	if (!allow_reserved_prefixes && is_reserved_prefix(name))
 		return true;
-
+/*
 	if (member)
 	{
 		// Reserved member identifiers come in one form:
@@ -221,6 +221,7 @@ static bool is_reserved_identifier(const string &name, bool member, bool allow_r
 
 		return index == name.size() || (index < name.size() && name[index] == '_');
 	}
+*/
 }
 
 bool ParsedIR::is_globally_reserved_identifier(std::string &str, bool allow_reserved_prefixes)
