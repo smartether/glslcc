@@ -1439,7 +1439,9 @@ void CompilerHLSL::emit_resources()
 		emit_builtin_inputs_in_struct();
 		end_scope_decl();
 		statement("");
-		statement("#endif");
+		if(execution.model == ExecutionModelFragment){
+			statement("#endif");
+		}
 	}
 
 	if (!output_variables.empty() || !active_output_builtins.empty())
@@ -1461,7 +1463,9 @@ void CompilerHLSL::emit_resources()
 		emit_builtin_outputs_in_struct();
 		end_scope_decl();
 		statement("");
-		statement("#endif");
+		if(execution.model == ExecutionModelVertex){
+			statement("#endif");
+		}
 	}
 
 	// Global variables.
