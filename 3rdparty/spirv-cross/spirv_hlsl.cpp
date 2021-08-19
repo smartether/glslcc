@@ -1424,7 +1424,11 @@ void CompilerHLSL::emit_resources()
 	if (!input_variables.empty() || !input_builtins.empty())
 	{
 		require_input = true;
-		statement("struct SPIRV_Cross_Input");
+		if(execution.model == ExecutionModelVertex){
+			statement("struct STAttribute");
+		}else if(execution.model == ExecutionModelFragment){
+			statement("struct STVaring");
+		}
 
 		begin_scope();
 		sort(input_variables.begin(), input_variables.end(), variable_compare);
@@ -1438,7 +1442,11 @@ void CompilerHLSL::emit_resources()
 	if (!output_variables.empty() || !active_output_builtins.empty())
 	{
 		require_output = true;
-		statement("struct SPIRV_Cross_Output");
+		if(execution.model == ExecutionModelVertex){
+			statement("struct STVaring");
+		}else if(execution.model == ExecutionModelFragment){
+			statement("struct STTargets");
+		}
 
 		begin_scope();
 		// FIXME: Use locations properly if they exist.
