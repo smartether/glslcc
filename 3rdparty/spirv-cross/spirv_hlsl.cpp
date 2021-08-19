@@ -1427,6 +1427,8 @@ void CompilerHLSL::emit_resources()
 		if(execution.model == ExecutionModelVertex){
 			statement("struct STAttribute");
 		}else if(execution.model == ExecutionModelFragment){
+			statement("#ifndef _STVARING_");
+			statement("#define _STVARING_");
 			statement("struct STVaring");
 		}
 
@@ -1437,12 +1439,15 @@ void CompilerHLSL::emit_resources()
 		emit_builtin_inputs_in_struct();
 		end_scope_decl();
 		statement("");
+		statement("#endif");
 	}
 
 	if (!output_variables.empty() || !active_output_builtins.empty())
 	{
 		require_output = true;
 		if(execution.model == ExecutionModelVertex){
+			statement("#ifndef _STVARING_");
+			statement("#define _STVARING_");
 			statement("struct STVaring");
 		}else if(execution.model == ExecutionModelFragment){
 			statement("struct STTargets");
@@ -1456,6 +1461,7 @@ void CompilerHLSL::emit_resources()
 		emit_builtin_outputs_in_struct();
 		end_scope_decl();
 		statement("");
+		statement("#endif");
 	}
 
 	// Global variables.
