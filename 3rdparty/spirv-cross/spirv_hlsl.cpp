@@ -2354,10 +2354,18 @@ void CompilerHLSL::emit_function_prototype(SPIRFunction &func, const Bitset &ret
 
 void CompilerHLSL::emit_hlsl_entry_point()
 {
+	auto &execution = get_entry_point();
 	SmallVector<string> arguments;
 
-	if (require_input)
-		arguments.push_back("SPIRV_Cross_Input stage_input");
+	if (require_input){
+		if(execution.model == ExecutionModelVertex){
+			arguments.push_back("STAttribute stage_input");
+		}
+		else if(execution.model == ExecutionModelFragment){
+			arguments.push_back("STVaring stage_input");
+		}
+
+	}
 
 	// Add I/O blocks as separate arguments with appropriate storage qualifier.
 	ir.for_each_typed_id<SPIRVariable>([&](uint32_t, SPIRVariable &var) {
@@ -2407,8 +2415,14 @@ void CompilerHLSL::emit_hlsl_entry_point()
 	default:
 		break;
 	}
+	
+	auto outputStruct = "";
+	if(execution.model == ExecutionModelVertex)
+		outputStruct = "STVaring";
+	else if(execution.model == ExecutionModelFragment)
+		outputStruct = "STTarget";
 
-	statement(require_output ? "SPIRV_Cross_Output " : "void ", "main(", merge(arguments), ")");
+	statement(require_output ? outputStruct : "void ", "main(", merge(arguments), ")");
 	begin_scope();
 	bool legacy = hlsl_options.shader_model <= 30;
 
@@ -2601,7 +2615,13 @@ void CompilerHLSL::emit_hlsl_entry_point()
 	// Copy stage outputs.
 	if (require_output)
 	{
-		statement("SPIRV_Cross_Output stage_output;");
+		if(execution.model == ExecutionModelVertex){
+			statement("STVaring stage_output;");
+		}
+		else if(execution.model == ExecutionModelFragment){
+			statement("STTargets stage_output;");
+		}
+		
 
 		// Copy builtins from globals to return struct.
 		active_output_builtins.for_each_bit([&](uint32_t i) {
