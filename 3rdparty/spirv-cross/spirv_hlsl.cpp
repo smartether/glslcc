@@ -2420,7 +2420,7 @@ void CompilerHLSL::emit_hlsl_entry_point()
 	if(execution.model == ExecutionModelVertex)
 		outputStruct = "STVaring ";
 	else if(execution.model == ExecutionModelFragment)
-		outputStruct = "STTarget ";
+		outputStruct = "STTargets ";
 
 	statement(require_output ? outputStruct : "void ", "main(", merge(arguments), ")");
 	begin_scope();
